@@ -2,7 +2,7 @@
 
 ## Overview
 - `sif_files`: compressed sif files
-- `examples`: example batch scripts for specific supercomputers
+- `examples`: example batch scripts and commands. Noting, Expanse and Jetsream allow for interative computing, but only Expanse accepts batch jobs
 - `docs`: documentation of the available files and creation processes
 
 ### Using Sif File
