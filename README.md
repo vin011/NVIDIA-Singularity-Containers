@@ -7,8 +7,8 @@
 
 ### Using Sif File
 1. Clone the repo
-2. Decompress the sif files with `tar -xzvf <sif_file>.gz`
-3. Ensure singularity or apptainer is currently running
-4. Load and compute
+2. Ensure singularity or apptainer is currently running
+3. Run example files
+4. Modify example files to calculate your compute needs
 
 ### Potential Errors

@@ -12,7 +12,7 @@
 #SBATCH --output=pytorch-gpu.o%j.%N
 
 export SINGULARITY_MODULE=singularitypro/3.11
-export GITHUB_REPO=$HOME/NVIDIA-Singularity-Containers
+export CONTAINER_DIR=$HOME/NVIDIA-Singularity-Containers/sif_files
 export ENV_OUPUT_FILE_NAME=$SLURM_JOB_ID.environment.txt
 
 module reset
@@ -26,5 +26,4 @@ printenv >> $ENV_OUTPUT_FILE_NAME
 nvidia-smi >> $ENV_OUTPUT_FILE_NAME
 
 # Load and run container
-singularity exec --bind /expanse,/scratch pytorch_24.11-py3.sif python -c 'import torch; print(torch.cuda.is_available())'
-
+singularity exec --bind /expanse,/scratch $CONTAINER_DIR/pytorch_24.11-py3.sif 'import torch; print(f"TORCH & CUDA: {torch.cuda.is_available()}")'

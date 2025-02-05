@@ -1,0 +1,12 @@
+# [PyTorch](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch)
+
+Image Creation Command: `singularity pull pytorch_24.11-py3.sif docker://nvcr.io/nvidia/pytorch:24.11-py3`
+Requires: 
+- NVIDIA GPU (can test by running `nvidia-smi`)
+- [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-container-toolkit)?
+
+# [TensorFlow](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/tensorflow)
+Image Creation Command: `singularity pull tensorflow_25.01-py3.sif docker://nvcr.io/nvidia/tensorflow:25.01-tf2-py3`
+Requires:
+- NVIDIA GPU (can test by running `nvidia-smi`)
+- [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-container-toolkit)?
