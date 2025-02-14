@@ -1,0 +1,22 @@
+# [PyTorch](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch)
+Requires Singularity or Apptainer
+
+Image Creation Command: `singularity pull pytorch_24.11-py3.sif docker://nvcr.io/nvidia/pytorch:24.11-py3`
+
+Currently exists at:
+- Expanse:
+- Jetstream: 
+
+# Usage
+- To run one command: `singularity exec pytorch_XXXXX.sif <command>`
+  Ex: `time -p singularity exec --bind /expanse,/scratch --nv pytorch_24.11-py3.sif python3 ../examples/pytorch-gpu.py`
+- To launch interactive container: `singularity run pytorch_XXXXX.sif`
+
+# Notes
+- `time -p` measures how long a command takes to execute in seconds. Referring the example output below, `real` is the total elasped time, `user` is CPU time spent running processes aka user-time, `sys` is CPU time spent running system calls aka kernel-mode.
+```
+real 195.70
+user 179.70
+sys 8.97
+```
+- In the provided examples, it may be neccessary to change the module versions
