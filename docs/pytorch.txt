@@ -2,6 +2,11 @@
 Requires Singularity or Apptainer
 
 Image Creation Command: `singularity pull pytorch_24.11-py3.sif docker://nvcr.io/nvidia/pytorch:24.11-py3`
+Replacing the version as necessary. Note that later versions will utilize new versions of CUDA that may not be compatible with specific GPUs.
+
+V100s: use 
+A100s: use
+H100s: use 
 
 Currently exists at:
 - Expanse:
