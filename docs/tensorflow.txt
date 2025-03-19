@@ -1,10 +1,22 @@
 # [TensorFlow](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/tensorflow)
+Requires Singularity or Apptainer
 
 Image Creation Command: `singularity pull tensorflow_25.01-py3.sif docker://nvcr.io/nvidia/tensorflow:25.01-tf2-py3`
+Replacing the version as necessary. Note that later versions will utilize new versions of CUDA and NVIDIA drivers that may not be compatible with specific GPUs.
 
-Currently exists at:
-- Expanse:
-- Jetstream: 
+To manually figure out which image is compatible with your hardware:
+1. On your GPU, run `nvidia-smi | grep CUDA` to view the NVIDIA Driver and CUDA versions. 
+2. Visit the [NVIDIA Framework Support Matrix](https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html) to view the various container image versions and their `System Requirement` version compatibilities, specifically for `NVIDIA Driver` and `CUDA`. 
+3. Manually parse and identify the container image version whose
+
+For the HPC resources, use the following versions or older:
+- Expanse
+V100s: xx - 23.02
+A100s: xx - 23.02
+H100s: xx  
+
+- Jetstream:
+A100s: xx - 23.10
 
 # Usage
 - To run one command: `singularity exec tensorflow_XXXXX.sif <command>`
