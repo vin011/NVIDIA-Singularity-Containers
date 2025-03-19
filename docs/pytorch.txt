@@ -2,15 +2,21 @@
 Requires Singularity or Apptainer
 
 Image Creation Command: `singularity pull pytorch_24.11-py3.sif docker://nvcr.io/nvidia/pytorch:24.11-py3`
-Replacing the version as necessary. Note that later versions will utilize new versions of CUDA that may not be compatible with specific GPUs.
+Replacing the version as necessary. Note that later versions will utilize new versions of CUDA and NVIDIA drivers that may not be compatible with specific GPUs.
 
-V100s: use 
-A100s: use
-H100s: use 
+To manually figure out which image is compatible with your hardware:
+1. On your GPU, run `nvidia-smi | grep CUDA` to view the NVIDIA Driver and CUDA versions. 
+2. Visit the [NVIDIA Framework Support Matrix](https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html) to view the various container image versions and their `System Requirement` version compatibilities, specifically for `NVIDIA Driver` and `CUDA`. 
+3. Manually parse and identify the container image version whose
 
-Currently exists at:
-- Expanse:
-- Jetstream: 
+For the HPC resources, use the following versions or older:
+- Expanse
+V100s: xx - 23.02
+A100s: xx - 23.02
+H100s: xx  
+
+- Jetstream:
+A100s: xx - 23.10
 
 # Usage
 - To run one command: `singularity exec pytorch_XXXXX.sif <command>`
