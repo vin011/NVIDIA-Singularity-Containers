@@ -1,39 +1,38 @@
 # Singularity Container Images
-Requires Singularity or Apptainer
+Singularity, also known as Apptainer, is an open-source container platform that allows the creation and deployment of applications in isolated environments. These containers can be built from scratch or by leveraging existing images, including Docker. Note that Singularity and Apptainer are interchangable throughout this document. 
+
+NVIDIA has a collection of Docker images on a resource named NVIDIA NGC Containers, specialized for GPU-optimized softwares. There is a wide range of images that are consistenly maintained and released to account for new dependency and library releases, driver updates and other compatibilities. 
 
 ## Common Containers and Source
 - [TensorFlow](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/tensorflow)
 - [PyTorch](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch)
 
-## Image Creation 
-Command: `singularity pull <image_version-format.sif> <docker source>`
-  Ex: `singularity pull tensorflow_25.01-py3.sif docker://nvcr.io/nvidia/tensorflow:25.01-tf2-py3`
-Note that pulling the latest version is not always best due to incompatibilities between the images, NVIDIA Drivers and CUDA versions
+## Singuarlity Image Creation 
+Please ensure that there is sufficient disk space for the image creation process (including the temporary files) and the final compressed singularity image. Each NVIDIA container image should note the approximate compressed image size. 
+
+Singularity images can created by simply pulling the docker image with the following command:
+`singularity pull <image_version-format.sif> <docker source>`
+
+Example: `singularity pull tensorflow_25.01-py3.sif docker://nvcr.io/nvidia/tensorflow:25.01-tf2-py3`
+Note that pulling the latest version is not always best due to incompatibilities between the NVIDIA Drivers and CUDA versions.
 
 To manually figure out which image is compatible with your hardware:
 1. On your GPU hardware, run `nvidia-smi | grep CUDA` to view the NVIDIA Driver and CUDA versions. 
 2. Visit the [NVIDIA Framework Support Matrix](https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html) to view the various container image versions and their `System Requirement` version compatibilities, specifically for `NVIDIA Driver` and `CUDA`. 
 3. Manually parse and identify the container image version that matches the hardware
 
-For the HPC resources, use the following versions or older:
+For the HPC resources, use the following versions:
 - Expanse
-V100s: xx - 23.02
-A100s: xx - 23.02
-H100s: xx  
+V100s: 23.02
+A100s: 23.02
+H100s: TBD  
 
 - Jetstream:
 A100s: xx - 23.10
 
-# Usage
-- To run one command: `singularity exec <image_version-format.sif> <command>`
-  Ex: `time -p singularity exec --bind /expanse,/scratch --nv tensorflow_25.01-py3.sif python3 NVIDIA-Singularity-Containers/examples/tensorflow_25-gpu.py`
-- To launch interactive container: `singularity run <image_version-format.sif>`
+# Using the Singularity Image
+- To run one command: `singularity exec --nv <image_version-format.sif> <command>`
+  Ex: `singularity exec --bind /expanse,/scratch --nv tensorflow_25.01-py3.sif python3 NVIDIA-Singularity-Containers/examples/tensorflow_25-gpu.py`
+- To launch interactive container: `singularity run --nv <image_version-format.sif>`
 
-# Notes
-- `time -p` measures how long a command takes to execute in seconds. Referring the example output below, `real` is the total elasped time, `user` is CPU time spent running processes aka user-time, `sys` is CPU time spent running system calls aka kernel-mode.
-```
-real 195.70
-user 179.70
-sys 8.97
-```
-- In the provided examples, it may be neccessary to change the module versions
+The "--nv" flag is neccessary to run a CUDA application inside the container and enable NVIDIA GPU support
