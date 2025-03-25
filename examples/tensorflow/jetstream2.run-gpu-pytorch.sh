@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 export SINGULARITY_MODULE=singularity/1.1.2
-export CONTAINER_DIR=$HOME/tensorflow_23.02-py3.sif
+export CONTAINER_DIR=$HOME/tensorflow_23.10-py3.sif
 
 module reset
 module load $SINGULARITY_MODULE
