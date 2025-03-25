@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 export SINGULARITY_MODULE=singularity/1.1.2
-export CONTAINER_DIR=$HOME/NVIDIA-Singularity-Containers/sif_files
-
-#export CONTAINER_DIR=$HOME/pytorch_23.02-py3.sif
-export GITHUB_REPO_DIR=$HOME/NVIDIA-Singularity-Containers
+export CONTAINER_DIR=$HOME/tensorflow_23.02-py3.sif
 
 module reset
 module load $SINGULARITY_MODULE
