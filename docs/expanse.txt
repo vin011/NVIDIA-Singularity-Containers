@@ -7,13 +7,14 @@ Additionally, it also supports interactive jobs for those desiring real-time com
 
 As of March 2025, Expanse provides 52 NVIDIA V100 nodes to those requesting default gpu jobs. There are limited A100s placed on reservation and requires additional permissions. 
 Currently in progress, the Expanse team is installing and preparing to deploy 136 NVIDIA H100 nodes, primarily intended for NAIRR and incoming NAIRR users. 
-
+ 
 ## Batch Jobs
-Jobs can be submitted by using the following command:
-`sbatch <job-script-file>`
+If using the example batch files from this repo, please copy the repo and ensure the BATCH variables are modified appropriately. These variables are declared at the top of the `.sh` files and configure job inputs, job outputs, and requested compute/gpu resources fields.
 
-In the "job-script-file", it will be required to input some job inputs, job outputs, and requested compute/gpu resources fields. One can also load all the modules neccessary and print any relevant job processing information.
-Some batch scripts can be found in the examples repo. 
+It may also be required to modify the `export` variable values to point to the appropriate file locations and naming conventions. 
+
+Jobs can be submitted by using the following command:
+`sbatch <job-script-file.sh>`
 
 ## Interative Jobs
 An interaactive job can be requested with the following command: 
