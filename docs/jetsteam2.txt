@@ -1,0 +1,17 @@
+# JetStream2 
+Official User Guide Documentation: https://docs.jetstream-cloud.org/
+
+## System Overview
+JetStream2 is an Openstack Cluster, with resources hosted across various institutions in the United States. It uses a web app interface for users to request instances, aka on-demand VMs, which can be accessible via browser or local terminal. These instances are highly customizable and ioslated from other resources. 
+
+As of March 2025, JetStream2 currently has 90 NVIDIA A100 GPU nodes.
+
+## Instance Creation Hints
+- Instances can be recreated or rebuilt to increase hardware, please ensure that all processes and progresses are saved. Rebuilding will terminate any running processes.
+- If the flavors do not provide sufficient disk storage, you can add disk space or a volume. The volume can be enlargened after initial creation and even separated and attached to another instance. 
+- If instances are not in use, shelve your instance to save your credit hours! 
+
+## Jobs
+JetStream2 does not have batch job capabilities, but does allow for interactive jobs. 
+
+Since the resources are already provisioned when creating the instance, the next steps after connecting to the instance is to load the modules and run the desired commands. 
