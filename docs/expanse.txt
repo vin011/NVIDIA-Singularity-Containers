@@ -2,14 +2,18 @@
 Official User Guide Documentation: https://www.sdsc.edu/systems/expanse/user_guide.html
 
 ## System Overview
-Expanse uses a SLURM workload manager for queue based job scheduling. This allows users to submit jobs and run them on the cluster's nodes without needing to monitor them continuously. 
+Expanse uses a SLURM workload manager for queue based job scheduling. This allows users to submit jobs and run them on the cluster's nodes without needing to 
+monitor them continuously. 
 Additionally, it also supports interactive jobs for those desiring real-time command-line access, interaction and visualization. 
 
-As of March 2025, Expanse provides 52 NVIDIA V100 nodes to those requesting default gpu jobs. There are limited A100s placed on reservation and requires additional permissions. 
+As of March 2025, Expanse provides 52 NVIDIA V100 nodes to those requesting default gpu jobs. There are limited A100s placed on reservation and requires 
+additional permissions. 
 Currently in progress, the Expanse team is installing and preparing to deploy 136 NVIDIA H100 nodes, primarily intended for NAIRR and incoming NAIRR users. 
  
 ## Batch Jobs
-If using the example batch files from this repo, please copy the repo and ensure the BATCH variables are modified appropriately. These variables are declared at the top of the `.sh` files and configure job inputs, job outputs, and requested compute/gpu resources fields.It may also be required to modify the `export` variable values to point to the appropriate file locations and naming conventions. 
+If using the example batch files from this repo, please copy the repo and ensure the BATCH variables are modified appropriately. These variables are declared 
+at the top of the `.sh` files and configure job inputs, job outputs, and requested compute/gpu resources fields.It may also be required to modify the `export` 
+variable values to point to the appropriate file locations and naming conventions. 
 
 Jobs can be submitted by using the following command:
 `sbatch NVIDIA-Singularity-Containers/examples/pytorch/expanse.run-gpu-pytorch-mnist.sh`
