@@ -27,7 +27,7 @@ A100s: 23.02
 H100s: TBD  
 
 - Jetstream:
-A100s: xx - 23.10
+A100s: 23.10
 
 ## Using the Singularity Image
 To run one command: `singularity exec --nv <image_version-format.sif> <command>`

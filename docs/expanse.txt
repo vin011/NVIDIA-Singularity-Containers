@@ -9,14 +9,14 @@ As of March 2025, Expanse provides 52 NVIDIA V100 nodes to those requesting defa
 Currently in progress, the Expanse team is installing and preparing to deploy 136 NVIDIA H100 nodes, primarily intended for NAIRR and incoming NAIRR users. 
  
 ## Batch Jobs
-If using the example batch files from this repo, please copy the repo and ensure the BATCH variables are modified appropriately. These variables are declared at the top of the `.sh` files and configure job inputs, job outputs, and requested compute/gpu resources fields.
-It may also be required to modify the `export` variable values to point to the appropriate file locations and naming conventions. 
+If using the example batch files from this repo, please copy the repo and ensure the BATCH variables are modified appropriately. These variables are declared at the top of the `.sh` files and configure job inputs, job outputs, and requested compute/gpu resources fields.It may also be required to modify the `export` variable values to point to the appropriate file locations and naming conventions. 
 
 Jobs can be submitted by using the following command:
-`sbatch <job-script-file.sh>`
+`sbatch NVIDIA-Singularity-Containers/examples/pytorch/expanse.run-gpu-pytorch-mnist.sh`
 
 ## Interative Jobs
 An interaactive job can be requested with the following command: 
 `srun --partition=gpu-debug  --pty --account=XXXX --ntasks-per-node=10 --nodes=1 --mem=96G --gpus=1 -t 00:30:00 --export=ALL /bin/bash`
 
 Once the resources are provisioned, run the `module purge` and `module restore` command. Then proceed to loading other modules and running the relevant commands. 
+From there, you can manually run the lines from expanse.run-gpu-pytorch-mnist.sh or other commands.
