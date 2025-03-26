@@ -12,9 +12,7 @@
 #SBATCH --output=pytorch-gpu.o%j.%N
 
 export SINGULARITY_MODULE=singularitypro/4.1.2
-export ENV_OUPUT_FILE_NAME=$SLURM_JOB_ID.environment.txt
-#export CONTAINER_DIR=$HOME/pytorch_23.02-py3.sif
-export CONTAINER_DIR=$HOME/NVIDIA-Singularity-Containers/sif_files/pytorch_24.11-py3.sif
+export CONTAINER_DIR=$HOME/pytorch_23.02-py3.sif
 export GITHUB_REPO_DIR=$HOME/NVIDIA-Singularity-Containers
 
 module reset
@@ -24,8 +22,8 @@ module load $SINGULARITY_MODULE
 cd /scratch/$USER/job_$SLURM_JOBID
 
 ## Print relevant environment and resource variables
-module list >> $ENV_OUTPUT_FILE_NAME
-printenv >> $ENV_OUTPUT_FILE_NAME
-nvidia-smi >> $ENV_OUTPUT_FILE_NAME
+module list 
+printenv 
+nvidia-smi 
 
 time -p singularity exec --bind /expanse,/scratch --nv $CONTAINER_DIR python3 $GITHUB_REPO_DIR/examples/pytorch/pytorch.mnist.py
