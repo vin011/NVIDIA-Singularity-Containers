@@ -16,4 +16,7 @@ JetStream2 does not have batch job capabilities, but does allow for interactive 
 
 Since the resources are already provisioned when creating the instance, the next steps after connecting to the instance is to load the modules and run the desired commands.
 
-Some bash scripts have been created in the examples folder which can be run with the following command `bash expanse.run-gpu-pytorch-mnist.sh` 
+Some bash scripts have been created in the examples folder which can be run with the following command `bash expanse.run-gpu-pytorch-mnist.sh`
+
+## Disclaimer
+The example scripts are not original. They have been slightly modified and borrowed versions of the Expanse /cm/shared scripts and internal development work.  

@@ -15,8 +15,11 @@ Jobs can be submitted by using the following command:
 `sbatch NVIDIA-Singularity-Containers/examples/pytorch/expanse.run-gpu-pytorch-mnist.sh`
 
 ## Interative Jobs
-An interaactive job can be requested with the following command: 
+An interactive job can be requested with the following command: 
 `srun --partition=gpu-debug  --pty --account=XXXX --ntasks-per-node=10 --nodes=1 --mem=96G --gpus=1 -t 00:30:00 --export=ALL /bin/bash`
 
 Once the resources are provisioned, run the `module purge` and `module restore` command. Then proceed to loading other modules and running the relevant commands. 
 From there, you can manually run the lines from expanse.run-gpu-pytorch-mnist.sh or other commands.
+
+## Disclaimer
+The example scripts are not original. They have been slightly modified and borrowed versions of the Expanse /cm/shared scripts and internal development work. 
