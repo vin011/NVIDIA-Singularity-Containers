@@ -42,74 +42,78 @@ def get_command_arguments():
 
 # https://keras.io/api/data_loading/image/ 
 def create_SDSC_dataset(root, args, dtype):
-    if args.channels == 1:
-        color_mode = 'grayscale'
-    elif args.channels == 3:
-        color_mode = 'rgb'
-    else: # channels == 4
-        color_mode = 'rgba'
+    if args.data_dir is not None:
+        if args.channels == 1:
+            color_mode = 'grayscale'
+        elif args.channels == 3:
+            color_mode = 'rgb'
+        else: # channels == 4
+            color_mode = 'rgba'
     
-    train_dataset, test_dataset = keras.utils.image_dataset_from_directory(
-            directory=root,
-            labels='inferred',
-            label_mode='categorical',
-            color_mode='rgb',
-            batch_size=None,
-            image_size=(192, 128),
-            shuffle=True,
-            seed=6059,
-            validation_split=0.3,
-            subset="both",
-            interpolation='bilinear',
-            follow_links=False,
-            crop_to_aspect_ratio=True
-        )
+        train_dataset, test_dataset = keras.utils.image_dataset_from_directory(
+                directory=root,
+                labels='inferred',
+                label_mode='categorical',
+                color_mode='rgb',
+                batch_size=None,
+                image_size=(192, 128),
+                shuffle=True,
+                seed=6059,
+                validation_split=0.3,
+                subset="both",
+                interpolation='bilinear',
+                follow_links=False,
+                crop_to_aspect_ratio=True
+            )
     
-    # map train and test dataset to normalize
-    train_dataset = train_dataset.map(lambda x, y: (tf.cast(x, tf.float32) / 255.0, y))
-    test_dataset = test_dataset.map(lambda x, y: (tf.cast(x, tf.float32) / 255.0, y))
-     
-    #train_dataset = train_dataset.map(lambda x, y: (tf.squeeze(x, axis=0), y))
-    #test_dataset = test_dataset.map(lambda x, y: (tf.squeeze(x, axis=0), y))
+        # map train and test dataset to normalize
+        train_dataset = train_dataset.map(lambda x, y: (tf.cast(x, tf.float32) / 255.0, y))
+        test_dataset = test_dataset.map(lambda x, y: (tf.cast(x, tf.float32) / 255.0, y))
+    else: 
+        train_dataset = train_dataset.map(lambda x, y: (tf.squeeze(x, axis=0), y))
+        test_dataset = test_dataset.map(lambda x, y: (tf.squeeze(x, axis=0), y))
 
-    #train_dataset, testvalds = keras.utils.split_dataset(raw_dataset, left_size=0.7, right_size=0.3)
-    #test_dataset, val_dataset = keras.utils.split_dataset(testvalds, left_size=(2 / 3), right_size=(1 / 3))
+        train_dataset, testvalds = keras.utils.split_dataset(raw_dataset, left_size=0.7, right_size=0.3)
+        test_dataset, val_dataset = keras.utils.split_dataset(testvalds, left_size=(2 / 3), right_size=(1 / 3))
 
     return train_dataset, test_dataset
 
 def create_datasets(classes, args, dtype):
-    # """ Create CIFAR training and test datasets """
+    if args.data_dir is not None:
+        return create_SDSC_dataset(args.data_dir, args, dtype)
+    else:
+        # """ Create CIFAR training and test datasets """
 
-    # Download training and test image datasets
-    if classes == 100:
-        (x_train, y_train), (x_test, y_test) = keras.datasets.cifar100.load_data(label_mode='fine')
-    elif classes == 20:
-        (x_train, y_train), (x_test, y_test) = keras.datasets.cifar100.load_data(label_mode='coarse')
-    else:  # classes == 10
-        (x_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
+        # Download training and test image datasets
+        if classes == 100:
+            (x_train, y_train), (x_test, y_test) = keras.datasets.cifar100.load_data(label_mode='fine')
+        elif classes == 20:
+            (x_train, y_train), (x_test, y_test) = keras.datasets.cifar100.load_data(label_mode='coarse')
+        else:  # classes == 10
+            (x_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
 
-    # Verify training and test image dataset sizes
-    assert x_train.shape == (50000, 32, 32, 3)
-    assert y_train.shape == (50000, 1)
-    assert x_test.shape == (10000, 32, 32, 3)
-    assert y_test.shape == (10000, 1)
+        # Verify training and test image dataset sizes
+        assert x_train.shape == (50000, 32, 32, 3)
+        assert y_train.shape == (50000, 1)
+        assert x_test.shape == (10000, 32, 32, 3)
+        assert y_test.shape == (10000, 1)
 
-    # Normalize the 8-bit (3-channel) RGB image pixel data between 0.0
-    # and 1.0; also converts datatype from numpy.uint8 to numpy.float64
-    x_train = x_train / 255.0
-    x_test = x_test / 255.0
+        # Normalize the 8-bit (3-channel) RGB image pixel data between 0.0
+        # and 1.0; also converts datatype from numpy.uint8 to numpy.float64
+        x_train = x_train / 255.0
+        x_test = x_test / 255.0
 
-    # Convert from NumPy arrays to TensorFlow tensors
-    x_train = tf.convert_to_tensor(value=x_train, dtype=dtype, name='x_train')
-    y_train = tf.convert_to_tensor(value=y_train, dtype=tf.uint8, name='y_train')
-    x_test = tf.convert_to_tensor(value=x_test, dtype=dtype, name='x_test')
-    y_test = tf.convert_to_tensor(value=y_test, dtype=tf.uint8, name='y_test')
+        # Convert from NumPy arrays to TensorFlow tensors
+        x_train = tf.convert_to_tensor(value=x_train, dtype=dtype, name='x_train')
+        y_train = tf.convert_to_tensor(value=y_train, dtype=tf.uint8, name='y_train')
+        x_test = tf.convert_to_tensor(value=x_test, dtype=dtype, name='x_test')
+        y_test = tf.convert_to_tensor(value=y_test, dtype=tf.uint8, name='y_test')
 
-    # Construct TensorFlow datasets
-    train_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train))
-    test_dataset = tf.data.Dataset.from_tensor_slices((x_test, y_test))
+        # Construct TensorFlow datasets
+        train_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train))
+        test_dataset = tf.data.Dataset.from_tensor_slices((x_test, y_test))
 
-    return train_dataset, test_dataset
+        return train_dataset, test_dataset
 
 
 def create_model(classes, args):
@@ -141,12 +145,13 @@ def create_model(classes, args):
             keras.layers.Flatten(),
             keras.layers.Dense(64, activation='relu'),
             keras.layers.Dense(classes),
-            keras.layers.Dense(1, activation="sigmoid")
         ])
+
+        #keras.layers.Dense(1, activation="sigmoid")
 
         model.compile(
             optimizer=keras.optimizers.Adam(),
-            loss=keras.losses.BinaryCrossentropy(from_logits=True),
+            loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
             metrics=['accuracy'],
         )
 
@@ -219,7 +224,10 @@ if __name__ == '__main__':
     output.writelines(f"{time.time() - timestart}\n")
     sys.exit(i)
 
-
+# Source:
+# The original script was created by student interns for the Expanse team.
+# It has not be official published yet.
+#
 # References:
 # https://www.tensorflow.org/tutorials/images/cnn
 # https://touren.github.io/2016/05/31/Image-Classification-CIFAR10.html

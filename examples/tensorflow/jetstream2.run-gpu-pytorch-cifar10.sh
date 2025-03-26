@@ -11,4 +11,4 @@ module list
 printenv 
 nvidia-smi 
 
-time -p singularity exec --nv $CONTAINER_DIR python3 $GITHUB_REPO_DIR/examples/tensorflow/tensorflow.cifar10.py
+time -p singularity exec --nv $CONTAINER_DIR python3 $GITHUB_REPO_DIR/examples/tensorflow/tensorflow.cifar10.py --classes 100 --precision fp32 --epochs 1 --batch_size 256 --accelerator gpu --savekeras True

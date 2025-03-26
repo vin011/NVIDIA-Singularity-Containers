@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 ### Please adjust the following variables accordingly
 #SBATCH --job-name=tensorflow-gpu
-#SBATCH --account=XXXXXX
+#SBATCH --account=XXXXX
 #SBATCH --partition=gpu-shared
+#SBATCH --gpus=3
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=10
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=90G
-#SBATCH --gpus=1
-#SBATCH --time=00:30:00
-#SBATCH --output=tensorflow-cifar10-gpu.o%j.%N
+#SBATCH --tasks-per-node=1
+#SBATCH --mem=128G
+#SBATCH --time=02:00:00
+#SBATCH --output=tensorflow-cifar100-gpu.o%j.%N
 
 export SINGULARITY_MODULE=singularitypro/4.1.2
 export CONTAINER_DIR=$HOME/tensorflow_23.02-py3.sif
@@ -26,4 +25,7 @@ module list
 printenv 
 nvidia-smi 
 
-time -p singularity exec --bind /expanse,/scratch --nv $CONTAINER_DIR python3 $GITHUB_REPO_DIR/examples/tensorflow/tensorflow.cifar10.py
+export TF_USE_LEGACY_KERAS=1
+
+time -p singularity exec --bind /expanse,/scratch --nv $CONTAINER_DIR python3 $GITHUB_REPO_DIR/examples/tensorflow/tensorflow.cifar100.py --classes 100 --precision fp32 --epochs 1 --batch_size 256 --accelerator gpu --savekeras True
+
