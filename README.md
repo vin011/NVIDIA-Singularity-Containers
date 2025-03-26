@@ -1,16 +1,15 @@
 # Welcome
 
 ## Overview
-- `examples`: example batch scripts and commands. Noting, Expanse and Jetsream allow for interative computing, but only Expanse accepts batch jobs
-- `docs`: documentation of the available files and creation processes
+- `examples`: example bash, batch scripts, and commands. Noting, Expanse and Jetstream2 allow for interative computing, but only Expanse accepts batch jobs
+- `docs`: overview documentation of containers, Expanse and Jetstream2
 
-The sif_files are too large to upload to github, thus brief creation documentation will be provided. Ideally the files will already exist on Expanse and Jetstream, just can't not be stored in the cloud.
+The sif_files are too large to upload to github, thus brief creation documentation will be provided. While the examples are based on the existing Expanse files, these exact files don't exist on Expanse or Jetstream2 at the moment. 
 
-### Using Sif File
+### How to Use
 1. Clone the repo
 2. Ensure singularity or apptainer is currently running
 3. Ensure singularity image or sif file already exists. If not, refer to `docs` on how to create them.
-4. Run example files
-5. Modify example output files to calculate your compute needs
-
-### Potential Errors
+4. Copy example files and modify relevant batch or path/directory variables
+5. Run example files
+6. Modify example output files to calculate your compute needs
