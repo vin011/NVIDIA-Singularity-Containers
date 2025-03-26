@@ -22,8 +22,8 @@ module load $SINGULARITY_MODULE
 cd /scratch/$USER/job_$SLURM_JOBID
 
 ## Print relevant environment and resource variables
-module list >> $ENV_OUTPUT_FILE_NAME
-printenv >> $ENV_OUTPUT_FILE_NAME
-nvidia-smi >> $ENV_OUTPUT_FILE_NAME
+module list 
+printenv 
+nvidia-smi 
 
 time -p singularity exec --bind /expanse,/scratch --nv $CONTAINER_DIR python3 $GITHUB_REPO_DIR/examples/tensorflow/tensorflow.cifar.py
